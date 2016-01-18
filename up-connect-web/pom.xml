@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>up-connect-web</artifactId>
+	<packaging>war</packaging>
+	<name>Application Webservice Java EE6 - Module Web</name>
+	<parent>
+		<groupId>com.natixis.cco.upconnect</groupId>
+		<artifactId>up-connect-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../up-connect-parent/pom.xml</relativePath>
+	</parent>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<arquillian.version>1.1.8.Final</arquillian.version>
+		<shrinkwrap.resolver.version>2.0.0-alpha-6</shrinkwrap.resolver.version>
+		<backend.mode>UPMOCK</backend.mode>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap.resolver</groupId>
+				<artifactId>shrinkwrap-resolver-bom</artifactId>
+				<version>${shrinkwrap.resolver.version}</version>
+				<scope>test</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>${arquillian.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+
+		<!-- Importe les APIs de Java EE 6 -->
+		<dependency>
+			<groupId>org.jboss.spec</groupId>
+			<artifactId>jboss-javaee-6.0</artifactId>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Importe les APIs de cache standard (@CacheResult, etc...) -->
+		<dependency>
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.cache.implementation</groupId>
+			<artifactId>cache-annotations-ri-cdi</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Importe l'implémentation de cache OS EhCache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-jcache</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Librairie de logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- SWAGGER -->
+		<dependency>
+			<groupId>com.wordnik</groupId>
+			<artifactId>swagger-jaxrs_2.10</artifactId>
+			<version>1.3.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<!-- Tests unitaires -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Pour bean-validation sur les tests -->
+		<dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.descriptors</groupId>
+			<artifactId>shrinkwrap-descriptors-impl-javaee</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!-- Dépendance pour le connecteur JCA - Uniquement pour la compilation 
+			!! -->
+
+		<dependency>
+			<groupId>com.bnpp.pf.ctgrelay</groupId>
+			<artifactId>ctgrelay-connector-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.bnpp.pf.ctgrelay</groupId>
+			<artifactId>ctgrelay-connector-impl</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<resources>
+			<resource>
+				<directory>src\main\resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<directory>src\test\resources</directory>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<!-- necessaire pour le replacer du web.xml http://code.google.com/p/maven-replacer-plugin/wiki/UsageWithOtherPlugins -->
+					<useCache>true</useCache>
+					<warSourceExcludes>**/.metadata,**/.metadata/*.*,**/.dm,**/.dm/*.*</warSourceExcludes>
+					<webResources>
+						<!-- Nous allons ici ecraser le beans.xml par celui du repertoire specifie 
+							grace au backend.mode -->
+						<resource>
+							<directory>src/main/resources_remote_beans/beans-${backend.mode}</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>beans.xml</include>
+							</includes>
+							<targetPath>WEB-INF</targetPath>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>arquillian-weld-ee-embedded</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.spec</groupId>
+					<artifactId>jboss-javaee-6.0</artifactId>
+					<type>pom</type>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
+					<version>1.0.0.CR3</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.weld</groupId>
+					<artifactId>weld-core</artifactId>
+					<version>1.1.5.Final</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-simple</artifactId>
+					<version>1.6.4</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>arquillian-glassfish-embedded</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+					<version>1.0.0.CR3</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.glassfish.main.extras</groupId>
+					<artifactId>glassfish-embedded-all</artifactId>
+					<version>3.1.2</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>arquillian-jbossas-managed</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.spec</groupId>
+					<artifactId>jboss-javaee-6.0</artifactId>
+					<version>1.0.0.Final</version>
+					<type>pom</type>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.as</groupId>
+					<artifactId>jboss-as-arquillian-container-managed</artifactId>
+					<version>7.1.1.Final</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.arquillian.protocol</groupId>
+					<artifactId>arquillian-protocol-servlet</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>remote</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources_remote</directory>
+						<filtering>true</filtering>
+						<excludes>
+							<exclude>**/.metadata</exclude>
+							<exclude>**/.metadata/*.*</exclude>
+							<exclude>**/.dm</exclude>
+							<exclude>**/.dm/*.*</exclude>
+							<exclude>**/*.pfx</exclude>
+						</excludes>
+					</resource>
+				</resources>
+				<testResources>
+					<testResource>
+						<directory>src/test/resources_remote</directory>
+						<filtering>true</filtering>
+						<excludes>
+							<exclude>**/.metadata</exclude>
+							<exclude>**/.metadata/*.*</exclude>
+							<exclude>**/.dm</exclude>
+							<exclude>**/.dm/*.*</exclude>
+							<exclude>**/*.pfx</exclude>
+						</excludes>
+					</testResource>
+				</testResources>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<webXml>${project.basedir}/src/main/webapp/WEB-INF/web_mod.xml</webXml> 
+							<warSourceExcludes>**/ibm-*.xml,**/web_mod.xml</warSourceExcludes>
+						</configuration>
+						
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>backend-UP</id>
+			<properties>
+				<backend.mode>UP</backend.mode>
+			</properties>
+		</profile>
+		<profile>
+			<id>backend-UPMOCK</id>
+			<properties>
+				<backend.mode>UPMOCK</backend.mode>
+			</properties>
+		</profile>
+	</profiles>
+</project>

@@ -1,0 +1,9 @@
+@CHARSET "ISO-8859-1";
+ img.img-up-status{
+  width: 60px;
+  height: 40px;
+  padding-top: 10px;
+}
+#header > div.swagger-ui-wrap > div{
+	float: left;
+}

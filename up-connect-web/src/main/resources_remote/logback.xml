@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true">
+	<insertFromJNDI env-entry-name="java:comp/env/upconnect/loggingDirectory"
+		as="loggingDirectory" />
+
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{40} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>${loggingDirectory}/up-connect.log</file>
+		<prudent>true</prudent>
+		<encoder>
+			<pattern>%d [%thread] %-5level %logger{40} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender class="ch.qos.logback.core.FileAppender" name="INTERCEPTOR-STAT">
+		<file>${loggingDirectory}/up-connect-stat.log</file>
+		<prudent>true</prudent>
+		<encoder>
+			<pattern>%d %-5level %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender class="ch.qos.logback.core.FileAppender" name="INTERCEPTOR-COMMAREA">
+		<file>${loggingDirectory}/up-connect-commarea.log</file>
+		<prudent>true</prudent>
+		<encoder>
+			<pattern>%d %-5level %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender class="ch.qos.logback.core.FileAppender" name="SONDE_LOG">
+		<file>${loggingDirectory}/up-connect-sonde.log</file>
+		<prudent>true</prudent>
+		<encoder>
+			<pattern>%d %-5level %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="statistiques" level="INFO">
+		<appender-ref ref="INTERCEPTOR-STAT" />
+	</logger>
+	
+	<logger name="commareas" level="DEBUG">
+		<appender-ref ref="INTERCEPTOR-COMMAREA" />
+	</logger>
+	
+	<logger name="sonde" level="WARN">
+		<appender-ref ref="SONDE_LOG" />
+	</logger>
+	
+
+	<root level="ERROR">
+		<appender-ref ref="STDOUT"/>
+		<appender-ref ref="FILE"/>
+	</root>
+
+</configuration>

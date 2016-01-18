@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>up-connect-ear</artifactId>
+	<packaging>ear</packaging>
+	<name>Application Webservice Java EE6 - Module Ear</name>
+	<parent>
+		<groupId>com.natixis.cco.upconnect</groupId>
+		<artifactId>up-connect-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../up-connect-parent/pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>up-connect-web</artifactId>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<version>6</version>
+					<defaultJavaBundleDir>lib/</defaultJavaBundleDir>
+					<fileNameMapping>no-version</fileNameMapping>
+					<earSourceExcludes>**/.metadata,**/.metadata/*.*,**/.dm,**/.dm/*.*</earSourceExcludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>remote</id>
+			<build>
+				<finalName>${project.artifactId}</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-ear-plugin</artifactId>
+						<configuration>
+							<earSourceExcludes>**/ibmconfig/**,**/ibm-*.xm*</earSourceExcludes>
+							<version>6</version>
+							<defaultJavaBundleDir>lib/</defaultJavaBundleDir>
+							<fileNameMapping>no-version</fileNameMapping>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

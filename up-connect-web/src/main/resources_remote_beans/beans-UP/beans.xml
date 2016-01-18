@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://java.sun.com/xml/ns/javaee 
+        http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+
+<alternatives>
+		<!-- CHOIX DU SERVICE CONTRAT UP1 -->
+		<!-- Si on veut tester le fonctionnement sans aller jusqu'au DAO united (mocké) -->
+<!-- 		<class>com.natixis.cco.upconnect.service.contrat.up1.ContratUP1ServiceMock</class> -->
+		<!-- Si on veut tester le fonctionnement non mocké -->
+		<class>com.natixis.cco.upconnect.service.contrat.up1.ContratUP1ServiceImpl</class>
+		<!-- FIN CHOIX DU SERVICE UP1 -->
+		
+		<!-- CHOIX DU SERVICE CONTRAT UP2 -->
+		<!-- Si on veut tester le fonctionnement sans aller jusqu'au DAO united (mocké) -->
+<!-- 		<class>com.natixis.cco.upconnect.service.contrat.up2.ContratUP2ServiceMock</class> -->
+		<!-- Si on veut tester le fonctionnement non mocké -->
+		<class>com.natixis.cco.upconnect.service.contrat.up2.ContratUP2ServiceImpl</class>
+		<!-- FIN CHOIX DU SERVICE UP2 -->
+		
+		<!-- CHOIX DU SERVICE RACHAT UP1 -->
+		<!-- Si on veut tester le fonctionnement sans aller jusqu'au DAO united 
+			(mocké) -->
+<!-- 		<class>com.natixis.cco.upconnect.service.rachat.up1.rachatUP1ServiceMock</class> -->
+		<class>com.natixis.cco.upconnect.service.rachat.up1.RachatUP1ServiceImpl</class>
+		<!-- FIN CHOIX DU SERVICE RACHAT UP1 -->
+		
+		<!-- CHOIX DU SERVICE ASSURANCE UP1 -->
+		<!-- Si on veut tester le fonctionnement sans aller jusqu'au DAO united 
+			(mocké) -->
+<!-- 		<class>com.natixis.cco.upconnect.service.assurance.up1.ContratUP1ServiceMock</class> -->
+		<class>com.natixis.cco.upconnect.service.assurance.up1.AssuranceUP1ServiceImpl</class>
+		<!-- FIN CHOIX DU SERVICE ASSURANCE UP1 -->
+		
+		<!-- CHOIX DU SERVICE AGENCE UP1 -->
+		<!-- Si on veut tester le fonctionnement sans aller jusqu'au DAO united 
+			(mocké) -->
+<!-- 		<class>com.natixis.cco.upconnect.service.assurance.up1.ContratUP1ServiceMock</class> -->
+		<class>com.natixis.cco.upconnect.service.agence.up1.AgenceUP1ServiceImpl</class>
+		<!-- FIN CHOIX DU SERVICE AGENCE UP1 -->
+		
+		<!-- CHOIX DU SERVICE DOMICILIATION BANCAIRE UP1 -->
+		<!-- Si on veut tester le fonctionnement sans aller jusqu'au DAO united 
+			(mocké) -->
+<!-- 		<class>com.natixis.cco.upconnect.service.domban.up1.DomBanUP1ServiceMock</class> -->
+		<class>com.natixis.cco.upconnect.service.domban.up1.DomBanUP1ServiceImpl</class>
+		<!-- FIN CHOIX DU SERVICE DOMICILIATION BANCAIRE UP1 -->	
+		
+		<!-- CHOIX DU SERVICE DMEN UP1 -->
+		<!-- Si on veut tester le fonctionnement sans aller jusqu'au DAO united 
+			(mocké) -->
+<!-- 		<class>com.natixis.cco.upconnect.service.dmen.up1.DMenUP1ServiceMock</class> -->
+		<class>com.natixis.cco.upconnect.service.dmen.up1.DMenUP1ServiceImpl</class>
+		<!-- FIN CHOIX DU SERVICE DMEN UP1 -->	
+		
+		<!-- CHOIX DU SERVICE DCRL UP1 -->
+		<!-- Si on veut tester le fonctionnement sans aller jusqu'au DAO united 
+			(mocké) -->
+		<!-- <class>com.natixis.cco.upconnect.service.dcrl.up1.DCrlUP1ServiceMock</class> -->
+			<class>com.natixis.cco.upconnect.service.dcrl.up1.DCrlUP1ServiceImpl</class>
+		<!-- FIN CHOIX DU SERVICE DCRL UP1 -->	
+		
+		<!-- CHOIX DU SERVICE HISTORIQUE UP1 -->
+		<!-- Si on veut tester le fonctionnement sans aller jusqu'au DAO united 
+			(mocké) -->
+		<!-- <class>com.natixis.cco.upconnect.service.hsitorique.up1.HistoUP1ServiceMock</class> -->
+			<class>com.natixis.cco.upconnect.service.historique.up1.HistoUP1ServiceImpl</class>
+		<!-- FIN CHOIX DU SERVICE HISTORIQUE UP1 -->	
+		
+		<!-- Si on veut tester avec une commarea en dure telle qu'UP nous renverrait : -->
+		<class>com.natixis.financement.middlesav.united.dao.UnitedDao</class>
+	</alternatives>
+	
+	<interceptors>
+		<class>com.natixis.cco.upconnect.interceptors.LogCommareaInterceptor</class>
+		<!-- Les interceptors pour les stats des services -->
+		<class>com.natixis.cco.upconnect.interceptors.contrat.ContratStatInterceptor</class>
+		<class>com.natixis.cco.upconnect.interceptors.contrat.AgenceStatInterceptor</class>
+		<class>com.natixis.cco.upconnect.interceptors.contrat.AssuranceStatInterceptor</class>
+		<class>com.natixis.cco.upconnect.interceptors.contrat.DomBanStatInterceptor</class>
+		<class>com.natixis.cco.upconnect.interceptors.contrat.RachatStatInterceptor</class>
+		<class>com.natixis.cco.upconnect.interceptors.m2cr.DMenStatInterceptor</class>
+		<class>com.natixis.cco.upconnect.interceptors.m2cr.DCrlStatInterceptor</class>
+		<class>com.natixis.cco.upconnect.interceptors.historique.HistoStatInterceptor</class>
+	</interceptors>
+</beans>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+	This configuration file was written by the eclipse-cs plugin configuration editor
+-->
+<!--
+Checkstyle-Configuration : Natixis
+Description : Fichier de configuration contenant l'ensemble de regles Checkstyle à vérifier
+Version : 1.0
+-->
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+<module name="Checker">
+
+	<module name="TreeWalker">
+		<property name="tabWidth" value="4"/>
+	
+		<!-- Indentation -->
+		<module name="Indentation">
+			<property name="basicOffset" value="4"/>
+			<property name="braceAdjustment" value="0"/>
+			<property name="caseIndent" value="4"/>
+		</module>
+		
+		<!-- Longueur de ligne -->
+		<module name="LineLength">
+			<property name="max" value="200"/>
+		</module>
+		
+		<!-- Nommage des variables locales -->
+		<module name="LocalVariableName">
+			<property name="severity" value="error"/>
+			<property name="format" value="^[a-z][a-zA-Z0-9]*$|^e$|^err$|^e1$|^e2$|^err1$|^err2$|^[i-k]$|^[m-n]$|^in$|^out$|^inOut$"/>
+		</module>       	
+		
+		<!-- Nombre "magique" -->
+		<module name="MagicNumber" />
+		
+		<!-- Nommage des variables membres -->
+		<module name="MemberName">
+			<property name="severity" value="error"/>
+			<metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Nom variable champ bean"/>
+			<property name="format" value="^[a-z][a-zA-Z0-9]*$|^_"/>
+		</module>
+		
+		<!-- Nommage des méthodes -->
+		<module name="MethodName">
+			<property name="severity" value="error"/>
+			<property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+		</module>
+		
+		<!-- Nommage des packages -->
+		<module name="PackageName">
+			<property name="severity" value="error"/>
+			<metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="com.natixis.xxx.xxxx.xxxx"/>
+			<property name="format" value="^(com\.natixis)+(\.[a-zA-Z_][a-zA-Z0-9_]*)*$|^(nbp\.)+([a-zA-Z_][a-zA-Z0-9_]*\.*)*$"/>
+		</module>
+		
+		<!-- Nommage des arguments de méthodes -->
+		<module name="ParameterName">
+			<property name="severity" value="error"/>
+			<property name="format" value="^[a-z][a-zA-ZA-Z0-9]*$"/>
+		</module>
+		
+		<!-- Nombre d'agruments de méthodes -->
+		<module name="ParameterNumber">
+			<property name="max" value="6"/>
+		</module>
+	
+		<!-- Nommage des classes -->
+		<module name="TypeName">
+			<property name="severity" value="error"/>
+			<property name="format" value="^[A-Z][a-zA-Z0-9]*$"/>
+			<metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Nom de classe"/>
+		</module>
+		
+		<!-- Modificateurs d'accès -->
+		<module name="VisibilityModifier">
+			<property name="packageAllowed" value="true"/>
+			<property name="protectedAllowed" value="true"/>
+			<property name="publicMemberPattern" value="^$"/>
+		</module>
+	
+	</module>
+
+</module>
+

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.natixis.cco.upconnect</groupId>
+	<artifactId>up-connect-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<parent>
+		<groupId>com.natixis.cc</groupId>
+		<artifactId>cc-plugins</artifactId>
+		<version>2</version>
+	</parent>
+	<name>Application WS Java EE6 - Module Parent</name>
+	<inceptionYear>2013</inceptionYear>
+
+	<modules>
+		<module>../up-connect-ear</module>
+		<module>../up-connect-web</module>
+	</modules>
+
+	<properties>
+		<cc.version>6.0.0.GA</cc.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.natixis.cc</groupId>
+				<artifactId>cc-bom</artifactId>
+				<version>${cc.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>up-connect-ear</artifactId>
+				<version>${project.version}</version>
+				<type>ear</type>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>up-connect-web</artifactId>
+				<version>${project.version}</version>
+				<type>war</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<encoding>UTF-8</encoding>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<inherited>false</inherited>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.5.2</version><!--$NO-MVN-MAN-VER$ -->
+					<executions>
+						<execution>
+							<id>install-ctgrelay-connector-api</id>
+							<phase>package</phase>
+							<goals>
+								<goal>install-file</goal>
+							</goals>
+							<configuration>
+								<file>${project.basedir}/src/main/resources/lib/ctgrelay-connector-api-1.0.0.jar</file>
+								<groupId>com.bnpp.pf.ctgrelay</groupId>
+								<artifactId>ctgrelay-connector-api</artifactId>
+								<version>1.0.0</version>
+								<packaging>jar</packaging>
+								<createChecksum>false</createChecksum>
+								<generatePom>true</generatePom>
+							</configuration>
+						</execution>
+						<execution>
+							<id>install-ctgrelay-connector-impl</id>
+							<phase>package</phase>
+							<goals>
+								<goal>install-file</goal>
+							</goals>
+							<configuration>
+								<file>${project.basedir}/src/main/resources/lib/ctgrelay-connector-impl-1.0.0.jar</file>
+								<groupId>com.bnpp.pf.ctgrelay</groupId>
+								<artifactId>ctgrelay-connector-impl</artifactId>
+								<version>1.0.0</version>
+								<packaging>jar</packaging>
+								<createChecksum>false</createChecksum>
+								<generatePom>true</generatePom>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
